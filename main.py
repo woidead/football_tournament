@@ -17,22 +17,22 @@ class Game:
         self.start_time = start_time
 
 def generate_schedule(teams):
-    # Divide teams into their respective divisions
+    
     divisions = defaultdict(list)
     for team in teams:
         divisions[team.division].append(team)
 
-    # Create list of all possible games
+
     all_games = [(home_team, away_team) for division in divisions.values() 
                  for i, home_team in enumerate(division) 
                  for away_team in division[i+1:]
                  if home_team.coach != away_team.coach]
 
-    # Sort games by number of stadium and start time preferences
+    
     all_games.sort(key=lambda x: (x[0].stadium_pref.count(x[1].stadium_pref),
                                   x[0].start_time_pref.count(x[1].start_time_pref)))
 
-    # Create list of scheduled games
+    
     scheduled_games = []
     while all_games:
         home_team, away_team = all_games.pop(0)
